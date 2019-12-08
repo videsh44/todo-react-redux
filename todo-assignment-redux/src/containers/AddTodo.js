@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Form, Input, Icon, Button } from "antd";
+import { Form, Input, Icon, message } from "antd";
 import { addTodo } from "../actions";
 
 const AddTodo = ({ dispatch }) => {
@@ -12,6 +12,10 @@ const AddTodo = ({ dispatch }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    if (todo === "" || todo === " " || todo === null || todo === undefined) {
+      message.warning("Enter Task");
+      return;
+    }
     dispatch(addTodo(todo));
     setTodo(" ");
   };
@@ -24,9 +28,19 @@ const AddTodo = ({ dispatch }) => {
           onChange={e => onInputChange(e)}
           value={todo}
         />
-        <Button style={{ marginTop: "30px" }} type="Primary">
+        <button
+          style={{
+            marginTop: "30px",
+            padding: "6px 14px",
+            background: "#1890FF",
+            color: "#fff",
+            borderRadius: "5px",
+            border: 0
+          }}
+          type="submit"
+        >
           Add Todo
-        </Button>
+        </button>
       </Form>
     </div>
   );
